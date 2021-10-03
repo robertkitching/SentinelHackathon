@@ -3,19 +3,20 @@
     <v-row class="text-center">
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Sagi`s Project
+          Welcome to Sentinel Apps
         </h1>
 
-        <p class="text-justify">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+        <p class="text-left">
+          Sentinel Apps allows you to create the best security solution for your
+          needs using Azure Sentinel data from queries you will set and take
+          immediate actions on queries results to mitigate threats in a fast and
+          efficient way.
+          <br />
+          <br />
+          Link to the App will be added to incidents created from the selected
+          analytic rule with a specific entity you will choose.
+          <br /><br />
+          Please follow the instructions below to set up your first app.
         </p>
 
         <v-expansion-panels>
@@ -27,6 +28,18 @@
               </template>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
+              <p class="text-left">
+                For obtaining Application ID and Secret please go to 'App
+                registrations' and follow the instructions in the following
+                link:
+                <a
+                  href="https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app"
+                  target="_blank"
+                  >Register App</a
+                >
+                (You can register the app and skip to 'Add a client secret'
+                section, make sure to record the secret's value)
+              </p>
               <v-text-field
                 v-model="appid"
                 label="Application ID"
@@ -80,6 +93,10 @@
           @change="selectWorkspace"
         ></v-select>
 
+        <p v-if="analitcs" class="text-left">
+          Choose analytic rule from which you would like to start the
+          investigation on the app
+        </p>
         <v-select
           v-if="analitcs"
           :items="analitcs"
@@ -91,14 +108,21 @@
         ></v-select>
 
         <div v-if="analytic && analitcs">
+          <p class="text-left">
+            Choose 1 entity from the analytic rule which you would like to
+            perform the queries on
+          </p>
           <v-text-field v-model="entity" label="Entity"></v-text-field>
-
-          
+          <p class="text-left">
+            In this section you can add multiple custom actions in which you
+            will take on certain entities when investigating for example: Block
+            Sender email address, Block IP, Isolate device from the network etc.
+          </p>
           <div v-for="(action, index) in actions" :key="index">
             <v-text-field
               v-model="action.value"
-              :label="`Action ${(index + 1)}`"
-              hint="use {ip} for value"
+              :label="`Action ${index + 1}`"
+              hint="Add name for the custom action"
             ></v-text-field>
           </div>
           <v-btn
@@ -121,11 +145,34 @@
           >
             <v-icon dark> mdi-plus </v-icon>
           </v-btn>
+          <p class="text-left">
+            Please create a playbook with 'When a HTTP request is received' and
+            add the HTTP POST URL below:
+          </p>
           <v-text-field
             v-model="hostAction"
             label="Please add HTTP POST URL "
           ></v-text-field>
-
+          <p class="text-left" style="font-size:12px;"><pre>Request body json schema for the playbook :
+{
+    "properties": {
+        "IncidentNumber": {
+            "type": "string"
+        },
+        "action": {
+            "type": "string"
+        },
+        "entity": {
+            "type": "string"
+        },
+        "teams": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
+</pre></p>
+          <p class="text-left">For Microsoft Teams communications mark the 'Teams' checkbox below and add specific team channel</p>
           <v-checkbox v-model="teams" :label="`Teams`"></v-checkbox>
 
           <v-text-field
@@ -133,12 +180,15 @@
             v-model="teamstext"
             label="Please add Teams "
           ></v-text-field>
+          <p class="text-left" v-pre>
+            Add queries for investigation, add the entity you chose inside {{example}}.
 
+          </p>
           <div v-for="(query, index) in queries" :key="index">
+            <v-text-field v-model="query.name" label="Query name"></v-text-field>
             <v-textarea
               v-model="query.value"
-              :label="`Query ${(index+1)}`"
-              hint="use {ID} for value"
+              :label="`Query ${index + 1}`"
             ></v-textarea>
           </div>
 
@@ -206,7 +256,7 @@ export default {
   name: "MainForm",
 
   data: () => ({
-    showAlert:false,
+    showAlert: false,
     hostAction: "",
     teams: false,
     teamstext: "",
@@ -223,7 +273,7 @@ export default {
     dataTables: [],
     headers: [],
     desserts: [],
-    queries: [{ value: "" }],
+    queries: [{ value: "" ,name:""}],
     actions: [{ value: "" }],
     model: "tab-2",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -445,8 +495,6 @@ export default {
         this.analitcs = newAnalytics;
       });
       return;
-
-      
     },
     selectAnalytics() {
       this.showLoader = true;
@@ -501,7 +549,7 @@ export default {
             break;
           }
           this.queriesCount++;
-          this.queries.push({ value: "" });
+          this.queries.push({ value: "",name:"" });
           break;
         case "minus":
           if (this.queriesCount < 2) {

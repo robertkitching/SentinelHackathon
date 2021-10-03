@@ -3,8 +3,8 @@
     <v-row class="text-center">
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Sagi`s Project step 2
-          <router-link to="/">Home</router-link>
+          <router-link to="/"><v-icon large>mdi-home</v-icon></router-link>
+          Welcome to Sentinel Apps
         </h1>
         <v-card>
           <v-card-title class="blue white--text">
@@ -31,15 +31,23 @@
           <v-toolbar color="cyan" dark flat>
             <template v-slot:extension>
               <v-tabs v-model="model" centered slider-color="yellow">
-                <v-tab v-for="i in queriesCount" :key="i" :href="`#tab-${i}`">
-                  Item {{ i }}
+                <v-tab
+                  v-for="(query, i) in queries"
+                  :key="i"
+                  :href="`#tab-${i}`"
+                >
+                  {{ query.name }}
                 </v-tab>
               </v-tabs>
             </template>
           </v-toolbar>
 
           <v-tabs-items v-model="model">
-            <v-tab-item v-for="i in queriesCount" :key="i" :value="`tab-${i}`">
+            <v-tab-item
+              v-for="(query, i) in queries"
+              :key="i"
+              :value="`tab-${i}`"
+            >
               <v-card flat>
                 <v-data-table
                   v-model="selectedDataRow"
