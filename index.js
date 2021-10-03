@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 //const port = 8888;
 const port = process.env.port || 8888;
@@ -24,6 +25,8 @@ const corsOpts = {
 };
 
 app.use(cors(corsOpts));
+
+app.use(express.static(path.join(__dirname, '/my-app/dist')));
 
 app.post('/api/validate', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
@@ -340,6 +343,12 @@ app.post('/api/sendquery', (req, res) => {
     return;
 
 });
+
+
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, '/my-app/dist/index.html'));
+  });
+  
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
