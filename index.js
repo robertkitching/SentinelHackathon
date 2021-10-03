@@ -1,7 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const app = express();
-const port = 8888;
+//const port = 8888;
+const port = process.env.port || 8888;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
@@ -24,7 +25,7 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 
-app.post('/', (req, res) => {
+app.post('/api/validate', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
 
@@ -57,7 +58,7 @@ app.post('/', (req, res) => {
         });
 });
 
-app.post('/resources', (req, res) => {
+app.post('/api/resources', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
 
@@ -91,7 +92,7 @@ app.post('/resources', (req, res) => {
         });
 });
 
-app.post('/workspaces', (req, res) => {
+app.post('/api/workspaces', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
 
@@ -125,7 +126,7 @@ app.post('/workspaces', (req, res) => {
         });
 });
 
-app.post('/analytics', (req, res) => {
+app.post('/api/analytics', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
 
@@ -160,7 +161,7 @@ app.post('/analytics', (req, res) => {
         });
 });
 
-app.post('/entities', (req, res) => {
+app.post('/api/entities', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
 
@@ -197,7 +198,7 @@ app.post('/entities', (req, res) => {
         });
 });
 
-app.post('/editentitysingle', (req, res) => {
+app.post('/api/editentitysingle', (req, res) => {
     const msRestAzure = require('ms-rest-azure');
     const AzureServiceClient = msRestAzure.AzureServiceClient;
     const clientId = req.body.appId;
@@ -259,7 +260,7 @@ app.post('/editentitysingle', (req, res) => {
 });
 
 
-app.post('/editentity', (req, res) => {
+app.post('/api/editentity', (req, res) => {
     const msrestazure = require('ms-rest-azure');
     const LogAnalyticsClient = require('azure-loganalytics');
 
@@ -299,7 +300,7 @@ app.post('/editentity', (req, res) => {
     return;
 });
 
-app.post('/sendquery', (req, res) => {
+app.post('/api/sendquery', (req, res) => {
     const msrestazure = require('ms-rest-azure');
     const LogAnalyticsClient = require('azure-loganalytics');
 

@@ -390,7 +390,7 @@ export default {
       this.showLoader = true;
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/editentitysingle",
+        url: "/api/editentitysingle",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -414,7 +414,7 @@ export default {
       this.showLoader = true;
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/editentity",
+        url: "/api/editentity",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -471,7 +471,7 @@ export default {
       this.showLoader = true;
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/editentity",
+        url: "/api/editentity",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -504,7 +504,7 @@ export default {
       });
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/entities",
+        url: "/api/entities",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -572,7 +572,7 @@ export default {
       //this.analitcs = ["analitics1", "analitics2"];
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/analytics",
+        url: "/api/analytics",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -607,7 +607,7 @@ export default {
       //this.workspaces = ["workspace1", "workspace2"];
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/workspaces",
+        url: "/api/workspaces",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -641,7 +641,7 @@ export default {
       //this.resources = ["resource1", "resource2"];
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/resources",
+        url: "/api/resources",
         data: {
           appId: this.appid,
           secret: this.secret,
@@ -684,7 +684,7 @@ export default {
       //this.subscriptions = ["subscription1", "subscription2"];
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/",
+        url: "/api/validate",
         data: {
           appId: this.appid,
           secret: this.secret,

@@ -188,7 +188,7 @@ export default {
       );
       this.axios({
         method: "POST",
-        url: "http://localhost:8888/sendquery",
+        url: "/api/sendquery",
         data: {
           appId: this.appid,
           secret: this.secret,
