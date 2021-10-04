@@ -63,7 +63,7 @@ We are providing a link to the hunting queries with the chosen entity in the inc
 
 ## Video Tutorial
 
-[Azure Sentinel Hackathon 2021 Submission Video](YouTube link here)
+[Azure Sentinel Hackathon 2021 Submission Video](https://www.youtube.com/watch?v=XaHI7YnMSOw)
 
 ## Try it out
 
