@@ -59,7 +59,7 @@ We are providing a link to the hunting queries with the chosen entity in the inc
 * Azure Log Analytics API
 * Azure Sentinel API
 * Logic Apps
-* Web app built with Vue JS
+* Web app built with Vue JS, Node.js, Express
 
 ## Video Tutorial
 
