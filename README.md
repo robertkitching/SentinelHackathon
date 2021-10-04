@@ -1,4 +1,4 @@
-# Sentinel Apps.
+# Sentinel Apps
 Sentinel Hackathon 2021 submission. Web Application integration with Azure Sentinel to build your own security solution.
 
 
